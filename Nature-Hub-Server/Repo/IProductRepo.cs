@@ -9,12 +9,16 @@ namespace Nature_Hub_Server.Repo
 
         Task<NatureProduct> AddProduct(NatureProduct product);
 
-        Task<NatureProduct> UpdateProduct(NatureProduct product);
+        Task<NatureProduct> UpdateProduct(NatureProduct product,int id);
 
         Task<ICollection<NatureProduct>> GetProductsByCategory(string category);
 
         Task<NatureProduct> GetProductById(int id);
 
         Task<bool> DeleteProduct(int id);
+
+        Task<ICollection<NatureProduct>> GetProductsBySearch(string search);
+
+        Task<IEnumerable<string>> GetAllCategories();
     }
 }

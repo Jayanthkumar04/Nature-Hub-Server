@@ -70,23 +70,52 @@ namespace Nature_Hub_Server.Repo
 
         public async Task<ICollection<NatureProduct>> GetProductsByCategory(string category)
         {
-            var catProducts = await _repo.NatureProducts.Where(x => x.ProCategory == category).ToListAsync();
+            
+                var catProducts = await _repo.NatureProducts.Where(x => x.ProCategory == category.ToLower()).ToListAsync();
 
-            if(catProducts != null)
+                if (catProducts != null)
+                {
+                    return catProducts;
+                }
+                else
+                {
+                    return new List<NatureProduct>();
+                }
+            }
+        
+
+        public async Task<NatureProduct> UpdateProduct(NatureProduct product,int id)
+        {
+            if (product.ProId == id)
             {
-                return catProducts;
+                _repo.NatureProducts.Update(product);
+                await _repo.SaveChangesAsync();
+                return product;
+            }
+            return null;
+        }
+        public async Task<ICollection<NatureProduct>> GetProductsBySearch(string search)
+        {
+            var products = await _repo.NatureProducts.Where(p => (p.ProName == search) || (p.ProName.Contains(search))).ToListAsync();
+
+            if(products != null)
+            {
+                return products;
             }
             else
             {
-                return new List<NatureProduct>();
+                return null;
             }
         }
 
-        public async Task<NatureProduct> UpdateProduct(NatureProduct product)
+        public async Task<IEnumerable<string>> GetAllCategories()
         {
-            _repo.NatureProducts.Update(product);
-            await _repo.SaveChangesAsync();
-            return product;
+            var cat = await _repo.NatureProducts.ToListAsync();
+
+            var all =  cat.Select(x => x.ProCategory).Distinct();
+
+            return all;
         }
+
     }
 }
