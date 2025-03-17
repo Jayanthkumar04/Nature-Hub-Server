@@ -16,5 +16,7 @@ namespace Nature_Hub_Server.Data
 
         public DbSet<HealthTip> HealthTips { get; set; }
 
+        public DbSet<User> Users { get; set; }
+
     }
 }

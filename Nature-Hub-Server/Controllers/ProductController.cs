@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Nature_Hub_Server.Models;
 using Nature_Hub_Server.Repo;
@@ -7,6 +8,7 @@ namespace Nature_Hub_Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductController : ControllerBase
     {
         IProductRepo _context;
@@ -53,6 +55,7 @@ namespace Nature_Hub_Server.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddProduct([FromBody] NatureProduct product)
         {
             var pro = await _context.AddProduct(product);
@@ -62,6 +65,7 @@ namespace Nature_Hub_Server.Controllers
         
         
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateProduct([FromBody] NatureProduct product,[FromRoute]int id)
         {
             var pro = await _context.UpdateProduct(product,id);
@@ -73,6 +77,7 @@ namespace Nature_Hub_Server.Controllers
         }
         
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct([FromRoute]int id)
         {
             var pro = await _context.DeleteProduct(id);

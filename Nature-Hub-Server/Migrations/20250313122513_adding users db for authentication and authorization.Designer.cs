@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Nature_Hub_Server.Data;
 
@@ -10,9 +11,11 @@ using Nature_Hub_Server.Data;
 namespace Nature_Hub_Server.Migrations
 {
     [DbContext(typeof(NatureProductsDbContext))]
-    partial class NatureProductsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250313122513_adding users db for authentication and authorization")]
+    partial class addingusersdbforauthenticationandauthorization
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
